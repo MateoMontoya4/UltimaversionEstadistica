@@ -1,0 +1,135 @@
+/* Diseño editorial: fondo crema, tipografía con serif, opciones tipo chip.
+   Nada de tarjetas con sombra ni círculos de radio: se ve distinto a un formulario de Google. */
+
+:root{
+  --acento:#338d94;
+  --acento-oscuro:#25676c;
+  --fondo:#f6f1e7;
+  --papel:#fffdf8;
+  --tinta:#1d2a2b;
+  --tinta-suave:#5b6664;
+  --linea:#d9d1c1;
+  --error:#a8322d;
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+
+body{
+  margin:0;
+  background:var(--fondo);
+  color:var(--tinta);
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+
+.barra-progreso{position:fixed;top:0;left:0;right:0;height:4px;background:var(--linea);z-index:5}
+.barra-progreso div{height:100%;width:0;background:var(--acento);transition:width .35s ease}
+
+main{max-width:640px;margin:0 auto;padding:56px 22px 90px}
+
+/* Encabezado */
+.encabezado{margin-bottom:40px;padding-bottom:28px;border-bottom:2px solid var(--tinta)}
+.kicker{
+  font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--acento-oscuro);
+  margin:0 0 14px;font-weight:700;
+}
+h1{
+  font-family:Georgia,"Times New Roman",serif;
+  font-weight:400;font-size:40px;line-height:1.12;margin:0 0 16px;letter-spacing:-.01em;
+}
+.intro{margin:0;color:var(--tinta-suave);font-size:16px;max-width:52ch}
+
+/* Secciones: sin tarjetas, con título serif y regla */
+.bloque{margin-bottom:12px}
+.seccion{
+  font-family:Georgia,"Times New Roman",serif;
+  font-weight:400;font-size:24px;margin:44px 0 8px;
+  padding-bottom:10px;border-bottom:1px solid var(--linea);
+}
+
+/* Preguntas: separadas por filete, sin cuadro */
+.pregunta{
+  padding:26px 0 28px;
+  border-bottom:1px solid var(--linea);
+  position:relative;
+}
+.pregunta.con-error{padding-left:14px}
+.pregunta.con-error::before{
+  content:"";position:absolute;left:-2px;top:26px;bottom:28px;width:3px;background:var(--error);
+}
+.texto-titulo{font-size:18px;font-weight:700;margin:0 0 10px;line-height:1.35}
+.req{color:var(--error);margin-left:3px}
+.ayuda{color:var(--tinta-suave);font-size:14px;margin:-4px 0 12px}
+
+/* Opciones tipo chip (el input real queda oculto pero accesible) */
+.opciones{display:flex;flex-wrap:wrap;gap:8px}
+.opcion{position:relative;display:inline-block;cursor:pointer}
+.opcion input{
+  position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none;
+}
+.opcion span{
+  display:inline-block;
+  padding:9px 16px;
+  border:1.5px solid var(--linea);
+  border-radius:999px;
+  background:var(--papel);
+  font-size:15px;
+  transition:background .15s,border-color .15s,color .15s;
+}
+.opcion:hover span{border-color:var(--tinta-suave)}
+.opcion input:checked + span{
+  background:var(--tinta);border-color:var(--tinta);color:var(--papel);
+}
+.opcion input:focus-visible + span{outline:2px solid var(--acento);outline-offset:2px}
+
+/* Escala 1 a 5: círculos con número */
+.escala{display:flex;gap:10px;flex-wrap:wrap}
+.escala .opcion span{
+  width:52px;height:52px;padding:0;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:Georgia,"Times New Roman",serif;font-size:20px;
+}
+.escala-ref{display:flex;justify-content:space-between;color:var(--tinta-suave);font-size:13px;margin-top:8px;max-width:330px}
+
+/* Campo "Otro" */
+.otro-texto{margin-top:12px}
+.otro-texto input{
+  width:100%;font:inherit;font-size:16px;color:var(--tinta);
+  background:transparent;border:none;border-bottom:1.5px solid var(--tinta);
+  padding:8px 2px;outline:none;
+}
+.otro-texto input:focus{border-bottom-color:var(--acento)}
+
+.error{color:var(--error);font-size:14px;margin:12px 0 0;font-weight:700}
+
+/* Aviso general */
+.aviso{
+  background:var(--tinta);color:var(--papel);padding:14px 18px;margin:0 0 8px;font-size:15px;
+}
+
+/* Botones */
+.acciones{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-top:40px}
+button{
+  background:var(--acento);color:#fff;border:0;border-radius:999px;
+  padding:14px 30px;font:inherit;font-size:16px;font-weight:700;cursor:pointer;
+  transition:background .15s;
+}
+button:hover{background:var(--acento-oscuro)}
+button:disabled{opacity:.6;cursor:default}
+button.secundario{background:none;color:var(--tinta-suave);padding:14px 4px;font-weight:400;text-decoration:underline}
+button.secundario:hover{background:none;color:var(--tinta)}
+
+/* Pantalla de gracias */
+.gracias{padding:50px 0 0}
+.gracias h1{margin-bottom:12px}
+.gracias p:not(.kicker){color:var(--tinta-suave);margin:0}
+
+@media (max-width:520px){
+  main{padding:36px 18px 70px}
+  h1{font-size:32px}
+  .seccion{font-size:21px}
+  .escala .opcion span{width:44px;height:44px;font-size:17px}
+}
